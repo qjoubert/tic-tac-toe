@@ -1,0 +1,53 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+button {
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+}
+
+.board-container {
+  border: 1px solid #ddd;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  height: 400px;
+  width: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.square {
+  border: 1px solid #ddd;
+  font-size: 7rem;
+  text-align: center;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.dimmed {
+  border-color: #ddd;
+}
+
+.highlighted {
+  border-color: #232323;
+}
+
+.unclickable {
+  cursor: default;
+}
+
+#reset-btn {
+  display: none;
+}
