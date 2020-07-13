@@ -7,13 +7,23 @@ export default (function() {
 
   const startBtn = document.querySelector("#start-btn");
   const newGameBtn = document.querySelector("#new-game-btn");
+  const infoPara = document.querySelector("p#info");
 
   events.listen(startBtn, "click", setNewGame);
   events.listen(newGameBtn, "click", reset);
 
-  function gameOver() {
+  function gameOver(result) {
+    if (result === "win") {
+      const winnerId = getCurrentPlayerId();
+      const winner = `Player ${winnerId == 1 ? 1 : 2}`;
+      infoPara.textContent = `${winner} wins the game ! Game Over`;
+    } 
+
+    else if (result === "tie") {
+      infoPara.textContent === "It's a tie ! Game Over"
+    }
+
     setGameStatus("");
-    console.log("We have a winner !")
   }
 
   function getCurrentPlayer() {
@@ -31,6 +41,7 @@ export default (function() {
 
   function reset() {
     setCurrentPlayerId("1");
+    showCurrentPlayer();
     gameboard.clear();
     gameboard.resetBoard();
   }
@@ -44,6 +55,7 @@ export default (function() {
     setCurrentPlayerId("1");
     gameboard.resetBoard();
     gameboard.highlightBoard();
+    showCurrentPlayer();
     display.hide(startBtn);
     display.show(newGameBtn, "inline-block");
   }
@@ -54,12 +66,19 @@ export default (function() {
     sessionStorage.setItem("currentPlayerId", id || nextPlayerId);
   }
 
+  function showCurrentPlayer() {
+    const currentPlayerId = getCurrentPlayerId();
+    const currentPlayer = `Player ${currentPlayerId === 1 ? 1 : 2} :`;
+    infoPara.textContent = currentPlayer;
+  }
+
   return {
     gameOver,
     getCurrentPlayer,
     getCurrentPlayerId,
     getGameStatus,
     setCurrentPlayerId,
-    setGameStatus
+    setGameStatus,
+    showCurrentPlayer
   };
 })();

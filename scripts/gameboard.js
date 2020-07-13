@@ -116,10 +116,12 @@ export default (function() {
 
     updateBoard(squareIndex, playerId);
     markSquare(square, playerMark);
-    if (checkWinner()) game.gameOver();
-    else if (isBoardFull()) console.log("It's a tie !");
-    else console.log("Nothing for now");
+
+    if (checkWinner()) return game.gameOver("win");
+    else if (isBoardFull()) return game.gameOver("tie");
+    
     game.setCurrentPlayerId();
+    game.showCurrentPlayer();
   }
 
   function setBoard(newBoard) {
