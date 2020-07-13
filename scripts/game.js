@@ -40,6 +40,8 @@ export default (function() {
   }
 
   function reset() {
+    const gameStatus = getGameStatus();
+    if (!gameStatus) setGameStatus("on");
     setCurrentPlayerId("1");
     showCurrentPlayer();
     gameboard.clear();
