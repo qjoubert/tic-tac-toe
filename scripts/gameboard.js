@@ -99,22 +99,24 @@ export default (function() {
   }
 
   function markSquare(square, mark) {
+    const textColor = mark === "o" ? "red" : "blue";
     square.textContent = mark;
+    square.style.color = textColor;
   }
 
   function onSquareClick(e) {
     const square = e.target;
-    const player = game.getCurrentPlayer();
     
-    if (!player || isMarkedSquare(square)) return;
-
-    const squareIndex = e.target.dataset.index;
+    if (!game.getGameStatus() || isMarkedSquare(square)) return;
+    
+    const player = game.getCurrentPlayer();
+    const squareIndex = square.dataset.index;
     const playerId = player.getId();
     const playerMark = player.getMark();
 
     updateBoard(squareIndex, playerId);
     markSquare(square, playerMark);
-    if (checkWinner()) console.log("We have a winner !");
+    if (checkWinner()) game.gameOver();
     else if (isBoardFull()) console.log("It's a tie !");
     else console.log("Nothing for now");
     game.setCurrentPlayerId();

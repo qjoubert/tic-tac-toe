@@ -14,7 +14,7 @@ button {
 }
 
 .board-container {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -27,17 +27,13 @@ button {
 }
 
 .square {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   font-size: 7rem;
   text-align: center;
 }
 
 .clickable {
   cursor: pointer;
-}
-
-.dimmed {
-  border-color: #ddd;
 }
 
 .highlighted {
