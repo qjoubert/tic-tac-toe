@@ -22,45 +22,45 @@ export default (function() {
   events.listenAll(squares, "click", onSquareClick);
 
   function checkWinner() {
-    const winningColumn = checkWinningColumn();
-    const winningDiagonal = checkWinningDiagonal();
-    const winningRow = checkWinningRow();
+    const board = getBoard();
+    const winningColumn = checkWinningColumn(board);
+    const winningDiagonal = checkWinningDiagonal(board);
+    const winningRow = checkWinningRow(board);
 
     if (winningColumn || winningDiagonal || winningRow) return true;
     else return false;
   }
 
-  function checkWinningColumn(i = 0) {
-    if (i > 2) return false; // last column starts at index 2 of board array
-
-    const board = getBoard();
-    const columnSum = (+board[i]) + (+board[i+3]) + (+board[i+6]);
-
-    if (columnSum === 3 || columnSum === -3) return true;
-    else return checkWinningColumn(++i);
+  function checkWinningColumn(board, i = 0) {
+    for (let i = 0; i <= 2; i++) {
+      const column = [board[i], board[i+3], board[i+6]];
+      const columnSum = column.reduce((sum, val) => sum += +val);
+  
+      if (columnSum === 3 || columnSum === -3) return true;
+    }
+    return false;
   }
 
-  function checkWinningDiagonal(i = 0) {
-    if (i > 2) return false;
-
-    const board = getBoard();
-    let diagonalSum;
-
-    if (i === 0) diagonalSum = (+board[i]) + (+board[i+4]) + (+board[i+8]);
-    if (i === 2) diagonalSum = (+board[i]) + (+board[i+2]) + (+board[i+4]);
-
-    if (diagonalSum === 3 || diagonalSum === -3) return true;
-    else return checkWinningDiagonal(i+2);
+  function checkWinningDiagonal(board, i = 0) {
+    for (let i = 0; i <= 2; i += 2) {
+      const diagonal = i === 0 ?
+        [board[i], board[i+4], board[i+8]] :
+        [board[i], board[i+2], board[i+4]];
+      const diagonalSum = diagonal.reduce((sum, val) => sum += +val);
+  
+      if (diagonalSum === 3 || diagonalSum === -3) return true;
+    }
+    return false;
   }
 
-  function checkWinningRow(i = 0) {
-    if (i > 6) return false; // last row starts at index 6 of board array
-
-    const board = getBoard();
-    const rowSum = (+board[i]) + (+board[i+1]) + (+board[i+2]);
-
-    if (rowSum === 3 || rowSum === -3) return true;
-    else return checkWinningRow(i+3);
+  function checkWinningRow(board, i = 0) {
+    for (let i = 0; i <= 6; i += 3) {
+      const row = [board[i], board[i+1], board[i+2]];
+      const rowSum = row.reduce((sum, val) => sum += +val);
+  
+      if (rowSum === 3 || rowSum === -3) return true;
+    }
+    return false;
   }
 
   function clear() {
@@ -89,6 +89,11 @@ export default (function() {
     });
   }
 
+  function isBoardFull() {
+    const board = getBoard();
+    return !board.includes(0);
+  }
+
   function isMarkedSquare(square) {
     return !!square.textContent;
   }
@@ -109,7 +114,9 @@ export default (function() {
 
     updateBoard(squareIndex, playerId);
     markSquare(square, playerMark);
-    if (checkWinner()) console.log("I see we have a winner !");
+    if (checkWinner()) console.log("We have a winner !");
+    else if (isBoardFull()) console.log("It's a tie !");
+    else console.log("Nothing for now");
     game.setCurrentPlayerId();
   }
 

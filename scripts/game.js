@@ -5,11 +5,11 @@ import Player from "./Player.js";
 
 export default (function() {
 
-  const playBtn = document.querySelector("#play-btn");
-  const resetBtn = document.querySelector("#reset-btn");
+  const startBtn = document.querySelector("#start-btn");
+  const newGameBtn = document.querySelector("#new-game-btn");
 
-  events.listen(playBtn, "click", setNewGame);
-  events.listen(resetBtn, "click", reset);
+  events.listen(startBtn, "click", setNewGame);
+  events.listen(newGameBtn, "click", reset);
 
   function getCurrentPlayer() {
     const id = getCurrentPlayerId();
@@ -21,20 +21,17 @@ export default (function() {
   }
 
   function reset() {
-    sessionStorage.setItem("currentPlayerId", "");
+    setCurrentPlayerId();
     gameboard.clear();
     gameboard.resetBoard();
-    gameboard.dimBoard();
-    display.hide(resetBtn);
-    display.show(playBtn, "inline-block");
   }
 
   function setNewGame() {
     setCurrentPlayerId();
     gameboard.resetBoard();
     gameboard.highlightBoard();
-    display.hide(playBtn);
-    display.show(resetBtn, "inline-block");
+    display.hide(startBtn);
+    display.show(newGameBtn, "inline-block");
   }
 
   function setCurrentPlayerId() {
