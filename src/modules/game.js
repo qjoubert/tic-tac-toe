@@ -1,16 +1,12 @@
-import display from "./display.js";
-import events from "./events.js";
-import gameboard from "./gameboard.js";
-import Player from "./Player.js";
+import display from "./dom";
+import gameboard from "./gameboard";
+import Player from "./Player";
 
 export default (function() {
 
   const startBtn = document.querySelector("#start-btn");
   const newGameBtn = document.querySelector("#new-game-btn");
   const infoPara = document.querySelector("p#info");
-
-  events.listen(startBtn, "click", setNewGame);
-  events.listen(newGameBtn, "click", reset);
 
   function gameOver(result) {
     if (result === "win") {
@@ -79,8 +75,10 @@ export default (function() {
     getCurrentPlayer,
     getCurrentPlayerId,
     getGameStatus,
+    reset,
     setCurrentPlayerId,
     setGameStatus,
+    setNewGame,
     showCurrentPlayer
   };
 })();

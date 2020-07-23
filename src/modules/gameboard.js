@@ -1,5 +1,5 @@
-import events from "./events.js";
-import game from "./game.js";
+
+import game from "./game";
 
 export default (function() {
 
@@ -18,8 +18,6 @@ export default (function() {
   const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   const boardContainer = document.querySelector(".board-container");
   const squares = document.querySelectorAll(".square");
-  
-  events.listenAll(squares, "click", onSquareClick);
 
   function checkWinner() {
     const board = getBoard();
@@ -143,6 +141,7 @@ export default (function() {
     dimBoard,
     getBoard,
     highlightBoard,
+    onSquareClick,
     resetBoard,
     setBoard
   };
